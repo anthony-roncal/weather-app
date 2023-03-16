@@ -6,6 +6,9 @@ export default function viewController(history) {
         for(const item of history) {
             const city = document.createElement('p');
             city.textContent = item.city;
+
+            const timestamp = document.createElement('p');
+            timestamp.textContent = item.timestamp;
             
             const tempF = document.createElement('p');
             tempF.textContent = `${item.tempF}°F`;
@@ -33,7 +36,7 @@ export default function viewController(history) {
 
             const historyItem = document.createElement('li');
             historyItem.classList.add('history-item');
-            historyItem.append(city, tempF, maxF, minF, tempC, maxC, minC, weather, description);
+            historyItem.append(city, tempF, maxF, minF, weather, timestamp, tempC, maxC, minC, description);
 
             historyList.append(historyItem);
         }

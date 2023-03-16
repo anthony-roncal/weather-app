@@ -3,7 +3,8 @@ import viewCont from './viewController';
 
 const lat = '34.05';
 const lon = '-118.24';
-const apiKey = 'c729b929766b1a310c84b9b8b3c972dc';
+const API_KEY = `${process.env.REACT_APP_API_KEY}`;
+
 
 let history = [];
 const viewController = viewCont(history);
@@ -12,7 +13,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 async function getWeatherByCity(city) {
     let index = history.length;
-    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
     let data = await response.json();
     
     let result = {

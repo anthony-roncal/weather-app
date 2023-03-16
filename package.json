@@ -23,6 +23,7 @@
   "homepage": "https://github.com/anthony-roncal/odin-weather-app#readme",
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.2",

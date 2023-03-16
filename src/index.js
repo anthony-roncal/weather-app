@@ -1,8 +1,6 @@
 import './style.css';
 import viewCont from './viewController';
 
-const lat = '34.05';
-const lon = '-118.24';
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
 

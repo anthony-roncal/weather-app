@@ -3,11 +3,18 @@ import viewCont from './viewController';
 
 const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
-
 let history = [];
 const viewController = viewCont(history);
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+document.querySelector('.search > button').addEventListener('click', function() {
+    let searchInput = document.getElementById('search');
+    if(searchInput.value) {
+        getWeatherByCity(searchInput.value);
+    }
+    searchInput.value = '';
+})
 
 async function getWeatherByCity(city) {
     let index = history.length;
@@ -27,7 +34,7 @@ async function getWeatherByCity(city) {
         "description": data.weather[0].description,
     };
     history[index] = result;
-    console.log(`City: ${result.city}\nTimestamp: ${result.time}
+    console.log(`City: ${result.city}\nTimestamp: ${result.timestamp}
         \nTemp in F: ${result.tempF}\nF Max: ${result.maxF}\nF Min: ${result.minF}
         \nTemp in C: ${result.tempC}\nC Max: ${result.maxC}\nC Min: ${result.minC}
         \nWeather: ${result.weather}\nDescription: ${result.description}`
@@ -52,12 +59,11 @@ function getDateTime() {
 }
 
 /* -- DUMMY DATA -- */
-async function addDummyData() {
-    await getWeatherByCity('Los Angeles');
-    await getWeatherByCity('Torrance');
-    await getWeatherByCity('Hawthorne');
-    await getWeatherByCity('Fountain Valley');
-    console.log(history);
-}
-
-addDummyData();
+// async function addDummyData() {
+//     await getWeatherByCity('Los Angeles');
+//     await getWeatherByCity('Torrance');
+//     await getWeatherByCity('Hawthorne');
+//     await getWeatherByCity('Fountain Valley');
+//     console.log(history);
+// }
+// addDummyData();

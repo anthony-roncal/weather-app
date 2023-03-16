@@ -38,7 +38,7 @@ export default function viewController(history) {
             historyItem.classList.add('history-item');
             historyItem.append(city, tempF, maxF, minF, weather, timestamp, tempC, maxC, minC, description);
 
-            historyList.append(historyItem);
+            historyList.insertBefore(historyItem, historyList.firstChild);
         }
     }
 

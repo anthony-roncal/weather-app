@@ -1,5 +1,23 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 p {
     margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 20px;
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+.container {
+    padding: 10px;
 }
 
 .history {
@@ -7,6 +25,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 0;
 }
 
 .history-item {
@@ -15,4 +34,19 @@ p {
     border: 1px solid grey;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    padding: 10px;
+}
+
+.first {
+    border: 3px solid black;
+    font-size: 18px;
+}
+
+.unit-toggle > span {
+    cursor: pointer;
+    color: grey;
+}
+
+.unit-toggle > .current-unit {
+    color: black;
 }

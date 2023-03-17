@@ -5,8 +5,11 @@ const API_KEY = `${process.env.REACT_APP_API_KEY}`;
 
 let history = [];
 const viewController = viewCont(history);
+let currentUnit = '°F';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+document.querySelectorAll('.unit-toggle > span').forEach(item => item.addEventListener('click', toggleUnits));
 
 document.querySelector('.search > button').addEventListener('click', function() {
     let searchInput = document.getElementById('search');
@@ -17,30 +20,34 @@ document.querySelector('.search > button').addEventListener('click', function() 
 })
 
 async function getWeatherByCity(city) {
-    let index = history.length;
-    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
-    let data = await response.json();
-    
-    let result = {
-        "city": data.name,
-        "timestamp": getDateTime(),
-        "tempF": convertKToF(data.main.temp),
-        "maxF": `High ${convertKToF(data.main.temp_max)}`,
-        "minF": `Low ${convertKToF(data.main.temp_min)}`,
-        "tempC": convertKToC(data.main.temp),
-        "maxC": `High ${convertKToC(data.main.temp_max)}`,
-        "minC": `Low ${convertKToC(data.main.temp_min)}`,
-        "weather": data.weather[0].main,
-        "description": data.weather[0].description,
-    };
-    history[index] = result;
-    console.log(`City: ${result.city}\nTimestamp: ${result.timestamp}
-        \nTemp in F: ${result.tempF}\nF Max: ${result.maxF}\nF Min: ${result.minF}
-        \nTemp in C: ${result.tempC}\nC Max: ${result.maxC}\nC Min: ${result.minC}
-        \nWeather: ${result.weather}\nDescription: ${result.description}`
-    );
+    try {
+        let index = history.length;
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
+        let data = await response.json();
+        
+        let result = {
+            "city": data.name,
+            "timestamp": getDateTime(),
+            "tempF": convertKToF(data.main.temp),
+            "maxF": `High ${convertKToF(data.main.temp_max)}`,
+            "minF": `Low ${convertKToF(data.main.temp_min)}`,
+            "tempC": convertKToC(data.main.temp),
+            "maxC": `High ${convertKToC(data.main.temp_max)}`,
+            "minC": `Low ${convertKToC(data.main.temp_min)}`,
+            "weather": data.weather[0].main,
+            "description": data.weather[0].description,
+        };
+        history[index] = result;
+        console.log(`City: ${result.city}\nTimestamp: ${result.timestamp}
+            \nTemp in F: ${result.tempF}\nF Max: ${result.maxF}\nF Min: ${result.minF}
+            \nTemp in C: ${result.tempC}\nC Max: ${result.maxC}\nC Min: ${result.minC}
+            \nWeather: ${result.weather}\nDescription: ${result.description}`
+        );
 
-    viewController.updateHistory();
+        viewController.updateHistory(currentUnit);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function convertKToF(temp) {
@@ -58,12 +65,7 @@ function getDateTime() {
     return `${months[currentDateTime.getMonth()]} ${currentDateTime.getDate()} at ${hours}:${currentDateTime.getMinutes()}${AmPm}`;
 }
 
-/* -- DUMMY DATA -- */
-// async function addDummyData() {
-//     await getWeatherByCity('Los Angeles');
-//     await getWeatherByCity('Torrance');
-//     await getWeatherByCity('Hawthorne');
-//     await getWeatherByCity('Fountain Valley');
-//     console.log(history);
-// }
-// addDummyData();
+function toggleUnits() {
+    (currentUnit === '°F') ? currentUnit = '°C' : currentUnit = '°F';
+    viewController.toggleUnits(currentUnit);
+}

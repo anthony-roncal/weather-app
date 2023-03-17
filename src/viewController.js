@@ -1,7 +1,7 @@
 export default function viewController(history) {
     const historyList = document.querySelector('.history');
 
-    function updateHistory() {
+    function updateHistory(unit) {
         Array.from(historyList.children).forEach(item => historyList.removeChild(item));
         for(const item of history) {
             const city = document.createElement('p');
@@ -36,13 +36,25 @@ export default function viewController(history) {
 
             const historyItem = document.createElement('li');
             historyItem.classList.add('history-item');
-            historyItem.append(city, tempF, maxF, minF, weather, timestamp, tempC, maxC, minC, description);
+            (unit === '°F') ? 
+                historyItem.append(city, weather, tempF, maxF, minF, timestamp, description) : 
+                historyItem.append(city, weather, tempC, maxC, minC, timestamp, description);
 
+            if(historyList.children.length > 0) {
+                historyList.firstChild.classList.toggle('first');
+            }
+            historyItem.classList.toggle('first');
             historyList.insertBefore(historyItem, historyList.firstChild);
         }
     }
 
+    function toggleUnits(currentUnit) {
+        document.querySelectorAll('.unit-toggle > span').forEach(item => item.classList.toggle('current-unit'));
+        updateHistory(currentUnit);
+    }
+
     return {
-        updateHistory
+        updateHistory,
+        toggleUnits
     }
 };

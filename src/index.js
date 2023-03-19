@@ -11,7 +11,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 document.querySelectorAll('.unit-toggle > span').forEach(item => item.addEventListener('click', toggleUnits));
 
-document.querySelector('.search > button').addEventListener('click', function() {
+document.querySelector('.search-container > button').addEventListener('click', function() {
     let searchInput = document.getElementById('search');
     if(searchInput.value) {
         getWeatherByCity(searchInput.value);
@@ -21,10 +21,17 @@ document.querySelector('.search > button').addEventListener('click', function() 
 
 async function getWeatherByCity(city) {
     try {
+        viewController.toggleLoader();
         let index = history.length;
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
         let data = await response.json();
+
+        let weather = data.weather[0].main;
+        let gifResponse = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=NrETc2GEnxjH8HpSxz3ZizWPp7eJc6HA&s=' + weather, {mode: 'cors'});
+        const gifData = await gifResponse.json();
+        viewController.displayGif(gifData.data.images.original.url);
         
+        viewController.toggleLoader();
         let result = {
             "city": data.name,
             "timestamp": getDateTime(),
@@ -34,19 +41,14 @@ async function getWeatherByCity(city) {
             "tempC": convertKToC(data.main.temp),
             "maxC": `High ${convertKToC(data.main.temp_max)}`,
             "minC": `Low ${convertKToC(data.main.temp_min)}`,
-            "weather": data.weather[0].main,
+            "weather": weather,
             "description": data.weather[0].description,
         };
         history[index] = result;
-        console.log(`City: ${result.city}\nTimestamp: ${result.timestamp}
-            \nTemp in F: ${result.tempF}\nF Max: ${result.maxF}\nF Min: ${result.minF}
-            \nTemp in C: ${result.tempC}\nC Max: ${result.maxC}\nC Min: ${result.minC}
-            \nWeather: ${result.weather}\nDescription: ${result.description}`
-        );
-
         viewController.updateHistory(currentUnit);
     } catch (error) {
         console.log(error);
+        viewController.toggleLoader();
     }
 }
 

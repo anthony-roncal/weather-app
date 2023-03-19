@@ -1,7 +1,8 @@
 import './style.css';
 import viewCont from './viewController';
 
-const API_KEY = `${process.env.REACT_APP_API_KEY}`;
+const WEATHER_API_KEY = `${process.env.REACT_APP_WEATHER_API_KEY}`;
+const GIPHY_API_KEY = `${process.env.REACT_APP_GIPHY_API_KEY}`
 
 let history = [];
 const viewController = viewCont(history);
@@ -23,11 +24,11 @@ async function getWeatherByCity(city) {
     try {
         viewController.toggleLoader();
         let index = history.length;
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHER_API_KEY}`);
         let data = await response.json();
 
         let weather = data.weather[0].main;
-        let gifResponse = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=NrETc2GEnxjH8HpSxz3ZizWPp7eJc6HA&s=' + weather, {mode: 'cors'});
+        let gifResponse = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${GIPHY_API_KEY}&s=` + weather, {mode: 'cors'});
         const gifData = await gifResponse.json();
         viewController.displayGif(gifData.data.images.original.url);
         

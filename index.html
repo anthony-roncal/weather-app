@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odin Weather App</title>
-    <link rel="stylesheet" href="style.css">
-<script defer src="/runtime.bundle.js"></script><script defer src="/index.bundle.js"></script></head>
+    <title>Weather App</title>
+<script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script></head>
 <body>
-    <p class="test">Hello world!</p>
-    Test
-    <script src="./index.bundle.js" defer></script>
+    <header>
+        <span>Weather</span>
+        <div class="unit-toggle">
+            <span class="current-unit">°F</span>
+            |
+            <span>°C</span>
+        </div>
+    </header>
+    <div class="container">
+        <div class="search-container">
+            <div class="loader hidden"></div>
+            <input type="text" name="search" id="search" class="search">
+            <button type="button" class="search">Search</button>
+        </div>
+        <img>
+        <ul class="history"></ul>
+    </div>
+    <script src="./index.bundle.js"></script>
 </body>
 </html>

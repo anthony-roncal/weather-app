@@ -1,7 +1,7 @@
 {
-  "name": "odin-weather-app",
+  "name": "weather-app",
   "version": "1.0.0",
-  "description": "This is a practice project for The Odin Project: Weather App.",
+  "description": "This is a weather app connecting to OpenWeatherMap API.",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anthony-roncal/odin-weather-app.git"
+    "url": "git+https://github.com/anthony-roncal/weather-app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anthony-roncal/odin-weather-app/issues"
+    "url": "https://github.com/anthony-roncal/weather-app/issues"
   },
-  "homepage": "https://github.com/anthony-roncal/odin-weather-app#readme",
+  "homepage": "https://github.com/anthony-roncal/weather-app",
   "devDependencies": {
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",

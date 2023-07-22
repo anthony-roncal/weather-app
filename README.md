@@ -1,3 +1,3 @@
-# odin-weather-app
+# weather-app
 
-This is a practice project for The Odin Project: Weather App.
+View app at: https://anthony-roncal.github.io/weather-app/
